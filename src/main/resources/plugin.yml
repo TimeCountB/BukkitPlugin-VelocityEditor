@@ -1,0 +1,22 @@
+name: VelocityEditer
+main: jp.tbox.timecountb.mcbukkit.plugin.ve.VelocityEditor
+version: 0.2
+author: TimerB
+description: ベロシティ操作コマンドプラグイン
+commands:
+  velocity:
+    description: ベロシティ操作コマンド
+    aliases: [vel]
+    usage: |
+           /<command> <player> <x> <y> <z> [add/multi/set]
+    permission: velocity
+    permission-message: 実行権限"<permission>"がありません
+permissions:
+  velocity:
+    description: ベロシティコマンド権限
+    default: op
+  velocity.*:
+    description: ベロシティコマンド権限
+    default: op
+    children:
+      velocity: true
