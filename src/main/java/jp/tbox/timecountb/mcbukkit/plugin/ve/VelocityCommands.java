@@ -43,7 +43,7 @@ class VelocityCommands implements CommandExecutor {
 			} else {
 				Entity ply = getOnlinePlayer(args[0]);
 				if(ply != null) ents.add(ply);
-				else sender.sendMessage(ChatColor.RED + String.format("%sという名前のプレイヤーを発見できません", args[0]));
+				else sender.sendMessage(ChatColor.RED + String.format("名前 %s を発見できません", args[0]));
 			}
 			
 			// 操作タイプの設定
@@ -93,7 +93,7 @@ class VelocityCommands implements CommandExecutor {
 	
 	static Entity getOnlinePlayer(String name) {
 		for(Player p:Bukkit.getServer().getOnlinePlayers()) {
-			if(p.getName().equals(name))
+			if(p.getName().equalsIgnoreCase(name))
 				return (Entity)p;
 		}
 		
