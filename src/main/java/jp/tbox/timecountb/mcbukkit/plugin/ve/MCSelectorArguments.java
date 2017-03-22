@@ -353,14 +353,18 @@ public class MCSelectorArguments {
 		
 	}
 	
-	public ArrayList<Entity> getPlayers() {
+	public ArrayList<Player> getPlayers() {
+		ArrayList<Player> plys = new ArrayList<>();
 		
 		// 全オンラインプレイヤー取得
 		ArrayList<Entity> ents = new ArrayList<>();
 		ents.addAll(Bukkit.getServer().getOnlinePlayers());
 		
-		return getEntities(ents);
+		for(Entity e:getEntities(ents)) {
+			if(e instanceof Player) plys.add((Player)e);
+		}
 		
+		return plys;
 	}
 	
 	public ArrayList<Entity> getEntities(ArrayList<Entity> base) {

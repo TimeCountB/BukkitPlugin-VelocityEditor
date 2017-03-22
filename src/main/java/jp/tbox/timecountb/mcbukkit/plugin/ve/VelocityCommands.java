@@ -37,11 +37,13 @@ class VelocityCommands implements CommandExecutor {
 			
 			// 対象プレイヤーの取得
 			ents = new ArrayList<>();
-			if(args[0].startsWith("@")){
+			if (args[0].startsWith("@e") || args[0].startsWith("@xe")) {
+				ents.addAll(new MCSelectorArguments(args[0],sender).getEntities());
+			} else if(args[0].startsWith("@")) {
 				ents.addAll(new MCSelectorArguments(args[0],sender).getPlayers());
 				//tempPlys.add((Player)sender);
 			} else {
-				Entity ply = getOnlinePlayer(args[0]);
+				Player ply = getOnlinePlayer(args[0]);
 				if(ply != null) ents.add(ply);
 				else sender.sendMessage(ChatColor.RED + String.format("名前 %s を発見できません", args[0]));
 			}
@@ -91,10 +93,10 @@ class VelocityCommands implements CommandExecutor {
 		return false;
 	}
 	
-	static Entity getOnlinePlayer(String name) {
+	static Player getOnlinePlayer(String name) {
 		for(Player p:Bukkit.getServer().getOnlinePlayers()) {
 			if(p.getName().equalsIgnoreCase(name))
-				return (Entity)p;
+				return p;
 		}
 		
 		return null;
