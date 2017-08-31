@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.tbox.timecountb.mcbukkit.plugin</groupId>
     <artifactId>VelocityEditor</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <version>1.12.0-R0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>

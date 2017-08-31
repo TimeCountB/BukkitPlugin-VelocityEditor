@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -14,12 +15,15 @@ import org.bukkit.util.Vector;
 /**
  * @author TimerB
  */
-class VelocityCommands implements CommandExecutor {
+class VelocityCommands implements TabExecutor {
 	
 	static final String numRegex = "^(\\-?[0-9]+\\.?[0-9]*)$";
+	static final String[] TYPES = {"add","multi","set"};
 	
 	public VelocityCommands() {
+		
 	}
+	
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -69,7 +73,7 @@ class VelocityCommands implements CommandExecutor {
 				switch(mode) {
 					case "set":
 						ent.setVelocity(vels);
-						sender.sendMessage(ChatColor.GRAY + String.format("velocity setted %s to %s,%s,%s", ent.getName(), vels.getX(), vels.getY(), vels.getZ()));
+						sender.sendMessage(ChatColor.GRAY + String.format("velocity set %s to %s,%s,%s", ent.getName(), vels.getX(), vels.getY(), vels.getZ()));
 						break;
 					case "multi":
 						temp = ent.getVelocity();
@@ -92,6 +96,37 @@ class VelocityCommands implements CommandExecutor {
 		
 		return false;
 	}
+	
+	// TABキーによるコマンド補完
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		ArrayList<String> cdt = new ArrayList<>();
+		
+		if (command.getName().equalsIgnoreCase("velocity")) {
+			
+			// 権限が無い場合、空配列を返す
+			if(!sender.hasPermission("velocity")) return cdt;
+			
+			if(args.length == 1) {
+				// nullを返してプレイヤー名を補完
+				return null;
+			}
+			
+			if(args.length == 5) {
+				// 既に入力されている文字と先頭一致する文字列を候補に追加
+				
+				for(String type : TYPES) {
+					if(type.startsWith(args[1])) {
+						cdt.add(type);
+					}
+				}
+			}
+			
+		}
+		
+		return cdt;
+	}
+	
 	
 	static Player getOnlinePlayer(String name) {
 		for(Player p:Bukkit.getServer().getOnlinePlayers()) {

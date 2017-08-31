@@ -1,6 +1,6 @@
 name: VelocityEditer
 main: jp.tbox.timecountb.mcbukkit.plugin.ve.VelocityEditor
-version: 0.2
+version: 0.3
 author: TimerB
 description: ベロシティ操作コマンドプラグイン
 commands:
